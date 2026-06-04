@@ -1,0 +1,42 @@
+@extends('layouts.app')
+@section('title', 'Control de Citas')
+@section('content')
+<div class="min-h-screen bg-gray-50 p-8">
+    <div class="mb-6"><a href="{{ route('dashboard') }}" class="text-[#52B7A0] font-bold hover:underline">Volver al Panel</a></div>
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-2xl font-bold text-blue-900 mb-4">Agenda de Citas</h2>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-md shadow-md mb-6">Programar Cita</button>
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase">Fecha y Hora</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase">Paciente</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase">Médico</th>
+                        <th class="px-6 py-4 text-left text-xs font-bold text-blue-900 uppercase">Estado</th>
+                        <th class="px-6 py-4 text-center text-xs font-bold text-blue-900 uppercase">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    @foreach($citas as $cita)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 text-gray-700 font-medium">{{ \Carbon\Carbon::parse($cita->fecha_hora)->format('d/m/Y h:i A') }}</td>
+                        <td class="px-6 py-4 text-gray-700">{{ $cita->paciente->nombre }} {{ $cita->paciente->apellido }}</td>
+                        <td class="px-6 py-4 text-gray-700">Dr(a). {{ $cita->medico->apellido }}</td>
+                        <td class="px-6 py-4">
+                            @if($cita->estado == 'completada') <span class="text-green-600 font-bold">Completada</span>
+                            @elseif($cita->estado == 'cancelada') <span class="text-red-600 font-bold">Cancelada</span>
+                            @else <span class="text-yellow-600 font-bold">Pendiente</span> @endif
+                        </td>
+                        <td class="px-6 py-4 text-center space-x-2">
+                            <button class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded">Editar</button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded">Eliminar</button>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection

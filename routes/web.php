@@ -8,9 +8,16 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Ruta de Login (¡ESTO SOLUCIONA TU ERROR DE POSTMAN!)
+// Autenticación Visual
 Route::get('/login', [WebController::class, 'showLogin'])->name('login');
 
-// Rutas del Panel y Módulos
+// Panel Principal
 Route::get('/dashboard', [WebController::class, 'dashboard'])->name('dashboard');
+
+// Módulos CRUD (Tablas visuales)
 Route::get('/pacientes', [WebController::class, 'pacientes'])->name('pacientes.index');
+Route::get('/medicos', [WebController::class, 'medicos'])->name('medicos.index');
+Route::get('/citas', [WebController::class, 'citas'])->name('citas.index');
+Route::get('/diagnosticos', [WebController::class, 'diagnosticos'])->name('diagnosticos.index');
+Route::get('/tratamientos', [WebController::class, 'tratamientos'])->name('tratamientos.index');
+Route::get('/medicamentos', [WebController::class, 'medicamentos'])->name('medicamentos.index');
